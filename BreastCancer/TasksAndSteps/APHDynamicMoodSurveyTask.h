@@ -36,4 +36,6 @@
 
 @interface APHDynamicMoodSurveyTask : ORKOrderedTask <ORKTask>
 
+- (instancetype) initAddingSteps;
+
 @end
