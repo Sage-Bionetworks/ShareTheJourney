@@ -125,12 +125,12 @@ static NSString *kWalkTenThousandSteps = @"Walk 10,000 steps at least 3 times pe
 #pragma  mark  -  Task Creation Methods
 /*********************************************************************************/
 
-+ (ORKOrderedTask *)createTask:(APCScheduledTask *)scheduledTask
++ (ORKOrderedTask *)createTask:(APCTask *)scheduledTask
 {
     
     NSMutableArray *steps = [[NSMutableArray alloc] init];
     
-    if ([scheduledTask.completed boolValue]) {
+    if (scheduledTask.taskFinished) {
         ORKStep *step = [[ORKStep alloc] initWithIdentifier:kExerciseSurveyStep100];
         
         [steps addObject:step];
