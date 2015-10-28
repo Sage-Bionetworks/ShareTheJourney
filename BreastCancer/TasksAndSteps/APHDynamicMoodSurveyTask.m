@@ -80,7 +80,7 @@ typedef NS_ENUM(NSUInteger, APHDynamicMoodSurveyType) {
 @end
 @implementation APHDynamicMoodSurveyTask
 
-- (instancetype) init {
+- (instancetype) initAddingSteps {
     
     NSArray* moodValueForIndex = @[@(5), @(4), @(3), @(2), @(1)];
     
@@ -107,22 +107,22 @@ typedef NS_ENUM(NSUInteger, APHDynamicMoodSurveyType) {
                                                                        NSLocalizedString(@"OK to make it through the day", @""),
                                                                        NSLocalizedString(@"low energy", @""),
                                                                        NSLocalizedString(@"no energy", @"")
-                                                                      ],
+                                                                       ],
                                                 
                                                 kMoodSurveyStep105 : @[NSLocalizedString(@"best sleep ever", @""),
                                                                        NSLocalizedString(@"better sleep than usual", @""),
                                                                        NSLocalizedString(@"OK sleep", @""),
                                                                        NSLocalizedString(@"I wish I slept more", @""),
                                                                        NSLocalizedString(@"no sleep", @"")
-                                                                     ],
-  
+                                                                       ],
+                                                
                                                 kMoodSurveyStep106 : @[NSLocalizedString(@"strenuous exercise (heart beats rapidly)", @""),
                                                                        NSLocalizedString(@"moderate exercise (tiring but not exhausting)", @""),
                                                                        NSLocalizedString(@"mild exercise (some effort)", @""),
                                                                        NSLocalizedString(@"minimal exercise (no effort)", @""),
                                                                        NSLocalizedString(@"no exercise", @"")
                                                                        ],
-
+                                                
                                                 kMoodSurveyStep107 : @[NSLocalizedString(@"great", @""),
                                                                        NSLocalizedString(@"good", @""),
                                                                        NSLocalizedString(@"average", @""),
@@ -197,8 +197,8 @@ typedef NS_ENUM(NSUInteger, APHDynamicMoodSurveyType) {
         ORKImageChoiceAnswerFormat *format = [[ORKImageChoiceAnswerFormat alloc] initWithImageChoices:answerChoices];
         
         ORKQuestionStep *step = [ORKQuestionStep questionStepWithIdentifier:kMoodSurveyStep102
-                                                                        title:NSLocalizedString(@"Today, my thinking is:", @"")
-                                                                       answer:format];
+                                                                      title:NSLocalizedString(@"Today, my thinking is:", @"")
+                                                                     answer:format];
         
         [steps addObject:step];
     }
@@ -232,8 +232,8 @@ typedef NS_ENUM(NSUInteger, APHDynamicMoodSurveyType) {
         ORKImageChoiceAnswerFormat *format = [[ORKImageChoiceAnswerFormat alloc] initWithImageChoices:answerChoices];
         
         ORKQuestionStep *step = [ORKQuestionStep questionStepWithIdentifier:kMoodSurveyStep103
-                                                                        title:NSLocalizedString(@"Today, my mood is:", @"")
-                                                                       answer:format];
+                                                                      title:NSLocalizedString(@"Today, my mood is:", @"")
+                                                                     answer:format];
         
         [steps addObject:step];
     }
@@ -266,8 +266,8 @@ typedef NS_ENUM(NSUInteger, APHDynamicMoodSurveyType) {
         ORKImageChoiceAnswerFormat *format = [[ORKImageChoiceAnswerFormat alloc] initWithImageChoices:answerChoices];
         
         ORKQuestionStep *step = [ORKQuestionStep questionStepWithIdentifier:kMoodSurveyStep104
-                                                                        title:NSLocalizedString(@"Today, my energy level is:", @"")
-                                                                       answer:format];
+                                                                      title:NSLocalizedString(@"Today, my energy level is:", @"")
+                                                                     answer:format];
         
         [steps addObject:step];
     }
@@ -300,8 +300,8 @@ typedef NS_ENUM(NSUInteger, APHDynamicMoodSurveyType) {
         ORKImageChoiceAnswerFormat *format = [[ORKImageChoiceAnswerFormat alloc] initWithImageChoices:answerChoices];
         
         ORKQuestionStep *step = [ORKQuestionStep questionStepWithIdentifier:kMoodSurveyStep105
-                                                                        title:NSLocalizedString(@"The quality of my sleep last night was:", @"")
-                                                                       answer:format];
+                                                                      title:NSLocalizedString(@"The quality of my sleep last night was:", @"")
+                                                                     answer:format];
         
         [steps addObject:step];
     }
@@ -333,8 +333,8 @@ typedef NS_ENUM(NSUInteger, APHDynamicMoodSurveyType) {
         
         ORKImageChoiceAnswerFormat *format = [[ORKImageChoiceAnswerFormat alloc] initWithImageChoices:answerChoices];
         ORKQuestionStep *step = [ORKQuestionStep questionStepWithIdentifier:kMoodSurveyStep106
-                                                                        title:NSLocalizedString(@"The most I exercised in the last day was:", @"")
-                                                                       answer:format];
+                                                                      title:NSLocalizedString(@"The most I exercised in the last day was:", @"")
+                                                                     answer:format];
         
         [steps addObject:step];
     }
@@ -366,8 +366,8 @@ typedef NS_ENUM(NSUInteger, APHDynamicMoodSurveyType) {
         
         ORKImageChoiceAnswerFormat *format = [[ORKImageChoiceAnswerFormat alloc] initWithImageChoices:answerChoices];
         ORKQuestionStep *step = [ORKQuestionStep questionStepWithIdentifier:kMoodSurveyStep107
-                                                                        title:NSLocalizedString(@"Custom Survey Question?", @"")
-                                                                       answer:format];
+                                                                      title:NSLocalizedString(@"Custom Survey Question?", @"")
+                                                                     answer:format];
         
         [steps addObject:step];
     }
@@ -376,8 +376,8 @@ typedef NS_ENUM(NSUInteger, APHDynamicMoodSurveyType) {
     {
         
         ORKQuestionStep *step = [ORKQuestionStep questionStepWithIdentifier:kMoodSurveyStep108
-                                                                        title:NSLocalizedString(@"What level exercise are you getting today?", @"")
-                                                                       answer:nil];
+                                                                      title:NSLocalizedString(@"What level exercise are you getting today?", @"")
+                                                                     answer:nil];
         
         [steps addObject:step];
     }
@@ -392,12 +392,13 @@ typedef NS_ENUM(NSUInteger, APHDynamicMoodSurveyType) {
     
     //Check if we have reached the threshold to display customizing a survey question.
     APCAppDelegate * delegate = (APCAppDelegate*)[UIApplication sharedApplication].delegate;
-        
+    
     if (delegate.dataSubstrate.currentUser.dailyScalesCompletionCounter == kNumberOfCompletionsUntilDisplayingCustomSurvey && delegate.dataSubstrate.currentUser.customSurveyQuestion == nil) {
         completedNumberOfTimes = YES;
         
         ORKStepResult *stepResult = [result stepResultForStepIdentifier:kCustomMoodSurveyStep102];
-        NSString *skipQuestion = [stepResult.results.firstObject textAnswer];
+        ORKTextQuestionResult *textQuestionResult = (ORKTextQuestionResult *) stepResult.results.firstObject;
+        NSString *skipQuestion = [textQuestionResult textAnswer];
         
         if (skipQuestion != nil) {
             if ([step.identifier isEqualToString:kMoodSurveyStep108])
@@ -802,8 +803,8 @@ typedef NS_ENUM(NSUInteger, APHDynamicMoodSurveyType) {
     ORKImageChoiceAnswerFormat *format = [[ORKImageChoiceAnswerFormat alloc] initWithImageChoices:answerChoices];
     
     ORKQuestionStep *questionStep = [ORKQuestionStep questionStepWithIdentifier:kMoodSurveyStep107
-                                                                            title:self.customSurveyQuestion
-                                                                           answer:format];
+                                                                          title:self.customSurveyQuestion
+                                                                         answer:format];
     
     return questionStep;
 }

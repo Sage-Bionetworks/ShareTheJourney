@@ -156,7 +156,7 @@ NSString *const kDatasetValueKey = @"datasetValueKey";
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"startOn"
                                                                    ascending:YES];
     
-    NSFetchRequest *request = [APCScheduledTask request];
+    NSFetchRequest *request = [APCTask request];
     
     NSDate *startDate = [[NSCalendar currentCalendar] dateBySettingHour:0
                                                                  minute:0
@@ -170,7 +170,7 @@ NSString *const kDatasetValueKey = @"datasetValueKey";
                                                                ofDate:[NSDate date]
                                                               options:0];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(task.taskID == %@) AND (startOn >= %@) AND (startOn <= %@)",
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(taskID == %@) AND (taskStarted >= %@) AND (taskStarted <= %@)",
                               taskId, startDate, endDate];
     
     request.predicate = predicate;
@@ -178,23 +178,23 @@ NSString *const kDatasetValueKey = @"datasetValueKey";
     
     NSError *error = nil;
     NSArray *tasks = [appDelegate.dataSubstrate.mainContext executeFetchRequest:request error:&error];
-
-    for (APCScheduledTask *task in tasks) {
-        if ([task.completed boolValue]) {
+    
+    for (APCTask *task in tasks) {
+        if (task.taskFinished) {
             NSDictionary *taskResult = [self retrieveResultSummaryFromResults:task.results];
             
             if (taskResult) {
                 if (!dataKey) {
                     [self.dataPoints addObject:@{
-                                         kDatasetDateKey: task.startOn,
-                                         kDatasetValueKey: [taskResult valueForKey:valueKey]
-                                        }];
+                                                 kDatasetDateKey: task.taskStarted,
+                                                 kDatasetValueKey: [taskResult valueForKey:valueKey]
+                                                 }];
                 } else {
                     NSDictionary *nestedData = [taskResult valueForKey:dataKey];
                     
                     if (nestedData) {
                         [self.dataPoints addObject:@{
-                                                     kDatasetDateKey: task.startOn,
+                                                     kDatasetDateKey: task.taskStarted,
                                                      kDatasetValueKey: [nestedData valueForKey:valueKey]
                                                      }];
                     }
@@ -409,7 +409,7 @@ NSString *const kDatasetValueKey = @"datasetValueKey";
 
 - (CGFloat)maximumValueForLineGraph:(APCLineGraphView *) __unused graphView
 {
-        NSLog(@"%f", [[self maximumDataPoint] doubleValue]);
+    NSLog(@"%f", [[self maximumDataPoint] doubleValue]);
     return [[self maximumDataPoint] doubleValue];
 }
 

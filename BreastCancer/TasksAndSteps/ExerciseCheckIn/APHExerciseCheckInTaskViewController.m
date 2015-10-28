@@ -68,7 +68,7 @@ static NSString* const kExerciseSurveyStep106           = @"exercisesurvey106";
 
 + (id<ORKTask>)createTask:(APCScheduledTask *) __unused scheduledTask
 {
-    APHExerciseCheckinTask* task = [[APHExerciseCheckinTask alloc] init];
+    APHExerciseCheckinTask* task = [[APHExerciseCheckinTask alloc] initAddingSteps];
     
     return task;
 }
@@ -135,8 +135,8 @@ static NSString* const kExerciseSurveyStep106           = @"exercisesurvey106";
     APCAppDelegate*     appDelegate = (APCAppDelegate*)[[UIApplication sharedApplication] delegate];
     NSSortDescriptor*   sortDescriptor = [[NSSortDescriptor alloc] initWithKey:kAPCTaskAttributeUpdatedAt
                                                                      ascending:NO];
-    NSFetchRequest*     request     = [APCScheduledTask request];
-    NSPredicate*        predicate   = [NSPredicate predicateWithFormat:@"(task.taskID == %@) AND (completed == YES)", taskId];
+    NSFetchRequest*     request     = [APCTask request];
+    NSPredicate*        predicate   = [NSPredicate predicateWithFormat:@"(taskID == %@) AND (taskFinished != nil)", taskId];
     
     request.predicate       = predicate;
     request.sortDescriptors = @[sortDescriptor];
@@ -154,7 +154,7 @@ static NSString* const kExerciseSurveyStep106           = @"exercisesurvey106";
     }
     else
     {
-        APCScheduledTask*   task            = [tasks firstObject];
+        APCTask*   task                     = [tasks firstObject];
         NSArray*            schedTaskResult = [task.results allObjects];
         NSSortDescriptor* sorDescrip        = [[NSSortDescriptor alloc] initWithKey:kAPCTaskAttributeUpdatedAt
                                                                           ascending:NO];

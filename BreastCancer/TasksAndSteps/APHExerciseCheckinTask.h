@@ -36,4 +36,6 @@
 
 @interface APHExerciseCheckinTask : ORKOrderedTask <ORKTask>
 
+- (instancetype) initAddingSteps;
+
 @end

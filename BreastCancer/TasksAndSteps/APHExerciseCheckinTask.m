@@ -131,8 +131,8 @@ static NSInteger const kMaxTextInput        = 300;
     APCAppDelegate*     appDelegate = (APCAppDelegate*)[[UIApplication sharedApplication] delegate];
     NSSortDescriptor*   sortDescriptor = [[NSSortDescriptor alloc] initWithKey:kAPCTaskAttributeUpdatedAt
                                                                    ascending:NO];
-    NSFetchRequest*     request     = [APCScheduledTask request];
-    NSPredicate*        predicate   = [NSPredicate predicateWithFormat:@"(task.taskID == %@) AND (completed == YES)", taskId];
+    NSFetchRequest*     request     = [APCTask request];
+    NSPredicate*        predicate   = [NSPredicate predicateWithFormat:@"(taskID == %@) AND (taskFinished != nil)", taskId];
 
     request.predicate       = predicate;
     request.sortDescriptors = @[sortDescriptor];
@@ -150,7 +150,7 @@ static NSInteger const kMaxTextInput        = 300;
     }
     else
     {
-        APCScheduledTask*   task            = [tasks firstObject];
+        APCTask*   task                     = [tasks firstObject];
         NSArray*            schedTaskResult = [task.results allObjects];
         NSSortDescriptor* sorDescrip        = [[NSSortDescriptor alloc] initWithKey:kAPCTaskAttributeUpdatedAt
                                                                       ascending:NO];
@@ -193,7 +193,7 @@ static NSInteger const kMaxTextInput        = 300;
     return goalImages[key];
 }
 
-- (instancetype) init
+- (instancetype) initAddingSteps
 {
     NSMutableArray* steps = [NSMutableArray array];
     

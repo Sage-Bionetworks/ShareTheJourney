@@ -113,7 +113,7 @@ static NSInteger const kNumberOfCompletionsUntilDisplayingCustomSurvey = 7;
 
 + (id<ORKTask>)createTask:(APCScheduledTask *) __unused scheduledTask
 {
-    APHDynamicMoodSurveyTask *task = [[APHDynamicMoodSurveyTask alloc] init];
+    APHDynamicMoodSurveyTask *task = [[APHDynamicMoodSurveyTask alloc] initAddingSteps];
     
     return task;
 }
