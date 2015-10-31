@@ -77,7 +77,7 @@ static NSString *kMoodLogNoteText = @"APHMoodLogNoteText";
 #pragma  mark  -  Task Creation Methods
 /*********************************************************************************/
 
-+ (ORKOrderedTask *)createTask:(APCScheduledTask *) __unused scheduledTask
++ (ORKOrderedTask *)createOrkTask:(APCScheduledTask *) __unused scheduledTask
 {
     NSMutableArray *steps = [[NSMutableArray alloc] init];
     
