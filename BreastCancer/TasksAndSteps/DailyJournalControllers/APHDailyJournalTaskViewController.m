@@ -49,6 +49,8 @@ static  NSString  *kDailyJournalStep104 = @"DailyJournalStep104";
 
 static NSString *kMoodLogNoteText = @"APHMoodLogNoteText";
 
+static const NSInteger kMyJournalActivitySchemaRevision = 3;
+
 @interface APHDailyJournalTaskViewController  ( ) <NSObject>
 
 @property (nonatomic, strong) NSDictionary *contentDictionary;
@@ -115,6 +117,14 @@ static NSString *kMoodLogNoteText = @"APHMoodLogNoteText";
     
     NSString *contentString = self.contentDictionary[kMoodLogNoteText];
     return contentString;
+}
+
+
+- (void) updateSchemaRevision
+{
+    if (self.scheduledTask) {
+        self.scheduledTask.taskSchemaRevision = [NSNumber numberWithInteger:kMyJournalActivitySchemaRevision];
+    }
 }
 
 /*********************************************************************************/
