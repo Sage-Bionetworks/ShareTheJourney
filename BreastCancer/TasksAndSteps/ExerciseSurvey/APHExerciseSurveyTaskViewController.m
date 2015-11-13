@@ -53,6 +53,8 @@ static NSString *kExerciseEverySingleDay = @"Exercise Every Single Day for at le
 static NSString *kExerciseThreeTimesPerWeek = @"Exercise at least 3 times per week for at least 30 minutes";
 static NSString *kWalkTenThousandSteps = @"Walk 10,000 steps at least 3 times per week";
 
+static const NSInteger kJournalActivitySchemaRevision = 3;
+
 @interface APHExerciseSurveyTaskViewController ()
 
 @property (nonatomic, strong) NSString *previousStepIdentifier;
@@ -452,5 +454,13 @@ static NSString *kWalkTenThousandSteps = @"Walk 10,000 steps at least 3 times pe
     
     return [stepResultJson valueForKey:@"result"];
 }
+
+- (void) updateSchemaRevision
+{
+    if (self.scheduledTask) {
+        self.scheduledTask.taskSchemaRevision = [NSNumber numberWithInteger:kJournalActivitySchemaRevision];
+    }
+}
+
 
 @end
